@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {MessageService} from "primeng/api";
+import {IUser} from "../../../models/users";
+import {AuthService} from "../../../services/auth/auth.service";
 
 @Component({
   selector: 'app-registration',
@@ -13,14 +16,29 @@ export class RegistrationComponent implements OnInit {
   cardNumber:string|undefined;
 
 
-  constructor() { }
+  constructor(private messageService: MessageService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
   }
 
-  registration(ev: Event):void{
+  registration(ev: Event):void|boolean {
     if (this.psw !== this.pswRepeat){
+      this.messageService.add({severity:'error', summary:'Пароли не совпадают'});
+      return false;
+    }
 
+    const userObj: IUser = {
+      psw: this.psw,
+      cardNumber: this.cardNumber,
+      login: this.login,
+      email: this.email
+    }
+    if (!this.authService.isUserExists(userObj)){
+      this.authService.setUser(userObj);
+      this.messageService.add({severity:'success', summary:'Регистрация прошла успешно'});
+    } else {
+      this.messageService.add({severity:'warn', summary:'Пользователь уже зарегестрирован'});
     }
 
   }

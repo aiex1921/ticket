@@ -25,4 +25,12 @@ export class AuthService {
       this.usersStorage.push(user);
     }
   }
+
+  isUserExists(user:IUser): boolean  {
+
+    const isUserExists = this.usersStorage.find((el)=>el.login === user.login);
+
+      return !!isUserExists;
+
+  }
 }

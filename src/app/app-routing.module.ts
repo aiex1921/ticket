@@ -4,10 +4,15 @@ import { RouterModule, Routes } from '@angular/router';
 
 
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: 'auth',
     loadChildren:() => import('./pages/auth/auth.module').then(m =>m.AuthModule)
   },
+
+  { path: 'ticket',
+    loadChildren:() => import('./pages/tickets/tickets.module').then(m =>m.TicketsModule)
+  },
+
   { path: '**',
     redirectTo:'auth',
     pathMatch: "full"

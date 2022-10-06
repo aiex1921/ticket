@@ -9,6 +9,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import {FormsModule} from "@angular/forms";
 import {CheckboxModule} from 'primeng/checkbox';
 import {ToastModule} from 'primeng/toast';
+import {MessageService} from "primeng/api";
 
 
 
@@ -26,7 +27,9 @@ import {ToastModule} from 'primeng/toast';
     InputTextModule,
     FormsModule,
     CheckboxModule,
-    ToastModule
-  ]
+    ToastModule,
+    ],
+  providers:[MessageService]
+
 })
 export class AuthModule { }

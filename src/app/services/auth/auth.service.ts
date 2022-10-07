@@ -13,8 +13,18 @@ export class AuthService {
   checkUser(user:IUser): boolean  {
 
     const isUserExists = this.usersStorage.find((el)=>el.login === user.login);
+
+    let isUserSavedInStore = window.localStorage.getItem("user_"+user?.login);
+    let userInStore: IUser = <IUser>{};
+
+    if (isUserSavedInStore) {
+      userInStore = JSON.parse(isUserSavedInStore);
+    }
+
     if (isUserExists){
       return isUserExists.psw === user.psw;
+    } else if (userInStore?.login) {
+      return userInStore.psw === user.psw;
     }
     return false
   }

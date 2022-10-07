@@ -1,6 +1,6 @@
 export interface IUser{
-  login: string | undefined,
+  login: string,
   email?: string,
-  psw: string | undefined,
-  cardNumber?: string|undefined
+  psw: string,
+  cardNumber?: string
 }

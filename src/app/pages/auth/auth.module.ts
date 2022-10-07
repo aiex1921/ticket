@@ -29,7 +29,7 @@ import {MessageService} from "primeng/api";
     CheckboxModule,
     ToastModule,
     ],
-  providers:[MessageService]
+  providers:[MessageService],
 
 })
 export class AuthModule { }

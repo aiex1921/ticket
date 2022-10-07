@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 
 
-export const routes: Routes = [
+const routes: Routes = [
   { path: 'auth',
     loadChildren:() => import('./pages/auth/auth.module').then(m =>m.AuthModule)
   },
@@ -13,10 +13,10 @@ export const routes: Routes = [
     loadChildren:() => import('./pages/tickets/tickets.module').then(m =>m.TicketsModule)
   },
 
-  { path: '**',
-    redirectTo:'auth',
-    pathMatch: "full"
-  },
+  {
+    path: '**',
+    redirectTo: 'auth'
+  }
 ];
 
 @NgModule({

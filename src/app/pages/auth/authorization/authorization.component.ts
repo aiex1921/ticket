@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {IUser} from "../../../models/users";
 import {AuthService} from "../../../services/auth/auth.service";
 import {MessageService} from "primeng/api";
-import {Route, Router} from "@angular/router";
+import {provideRouter, Router} from "@angular/router";
+
 
 
 @Component({
@@ -11,13 +12,13 @@ import {Route, Router} from "@angular/router";
   styleUrls: ['./authorization.component.scss']
 })
 export class AuthorizationComponent implements OnInit {
-  login: string | undefined ;
-  psw: string | undefined ;
+  login: string;
+  psw: string;
   loginText: string = "Логин";
   pswText: string = 'Пароль';
-  selectedValue: boolean = false;
-  cardNumber: string | undefined ;
-  authTextButton: string | undefined;
+  selectedValue: boolean;
+  cardNumber: string;
+  authTextButton: string;
 
 
   constructor(private authService:AuthService,
@@ -38,8 +39,9 @@ export class AuthorizationComponent implements OnInit {
       login: this.login
     }
     if (this.authService.checkUser(authUser)){
-      this.router.navigate(['tickets']);
-      console.log(this.router);
+      this.router.navigate(['tickets/tickets-list']);
+
+
 
     } else {
      this.messageService.add({severity:'error', summary:'Проверьте введённые данные'});

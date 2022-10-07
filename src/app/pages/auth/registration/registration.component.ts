@@ -9,11 +9,11 @@ import {AuthService} from "../../../services/auth/auth.service";
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
-  login:string|undefined;
-  psw:string|undefined;
-  pswRepeat:string|undefined;
-  email:string|undefined;
-  cardNumber:string|undefined;
+  login:string;
+  psw:string;
+  pswRepeat:string;
+  email:string;
+  cardNumber:string;
 
 
   constructor(private messageService: MessageService,

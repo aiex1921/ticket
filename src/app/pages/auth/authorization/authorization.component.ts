@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {IUser} from "../../../models/users";
 import {AuthService} from "../../../services/auth/auth.service";
 import {MessageService} from "primeng/api";
-import {provideRouter, Router} from "@angular/router";
+import {Router} from "@angular/router";
+import {UserService} from "../../../services/user/user.service";
 
 
 
@@ -14,8 +15,8 @@ import {provideRouter, Router} from "@angular/router";
 export class AuthorizationComponent implements OnInit {
   login: string;
   psw: string;
-  loginText: string = "Логин";
-  pswText: string = 'Пароль';
+  loginText: string = " Логин ";
+  pswText: string = "Пароль";
   selectedValue: boolean;
   cardNumber: string;
   authTextButton: string;
@@ -23,7 +24,8 @@ export class AuthorizationComponent implements OnInit {
 
   constructor(private authService:AuthService,
               private messageService: MessageService,
-              private router: Router) { }
+              private router: Router,
+              private userService: UserService) { }
 
   ngOnInit(): void {
     this.authTextButton = "Авторизоваться";
@@ -39,9 +41,8 @@ export class AuthorizationComponent implements OnInit {
       login: this.login
     }
     if (this.authService.checkUser(authUser)){
-      this.router.navigate(['tickets/tickets-list']);
-
-
+      this.userService.setUser(authUser);
+      this.router.navigate(['ticket/tickets-list']);
 
     } else {
      this.messageService.add({severity:'error', summary:'Проверьте введённые данные'});

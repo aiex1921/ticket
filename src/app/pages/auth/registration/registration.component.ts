@@ -14,6 +14,7 @@ export class RegistrationComponent implements OnInit {
   pswRepeat:string;
   email:string;
   cardNumber:string;
+  saveUserInStore:boolean;
 
 
   constructor(private messageService: MessageService,
@@ -21,6 +22,8 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  registrationLocalStorage(){}
 
   registration(ev: Event):void|boolean {
     if (this.psw !== this.pswRepeat){
@@ -36,6 +39,11 @@ export class RegistrationComponent implements OnInit {
     }
     if (!this.authService.isUserExists(userObj)){
       this.authService.setUser(userObj);
+
+      if (this.saveUserInStore){
+        const objUserJsonStr = JSON.stringify(userObj);
+        window.localStorage.setItem('user_'+userObj.login, objUserJsonStr);
+      }
       this.messageService.add({severity:'success', summary:'Регистрация прошла успешно'});
     } else {
       this.messageService.add({severity:'warn', summary:'Пользователь уже зарегестрирован'});

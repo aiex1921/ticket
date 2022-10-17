@@ -20,6 +20,10 @@
     <input type="text" class="mt-3" pInputText [(ngModel)]="cardNumber"/>
   </div>
   <div>
+    <span class="mx-3"></span>
+    <p-checkbox (onChange)="registrationLocalStorage()" class=" mt-3 " label="Сохранить личные данные в локальном хранилище" [(ngModel)]="saveUserInStore" [binary]="true"></p-checkbox>
+  </div>
+  <div>
     <span class="mx-3">&nbsp;</span>
     <button [disabled]="!login || !psw|| !pswRepeat" (click)="registration($event)" type="button" class="btn btn-success mt-3 ">Зарегистрироваться</button>
   </div>

@@ -24,7 +24,7 @@ export class BlocksStyleDirective implements OnInit, AfterViewInit, OnChanges{
   @Output() renderComplete = new EventEmitter();
 
   private items: HTMLElement[];
-  private index: number = 4;
+  private index: number = 0;
   public $event: KeyboardEvent;
   activeElementIndex: number = this.index;
 
@@ -50,6 +50,10 @@ export class BlocksStyleDirective implements OnInit, AfterViewInit, OnChanges{
   }
 
   ngOnChanges(data: SimpleChanges) {}
+
+  updateItems(): void {
+    this.items = this.el.nativeElement.querySelectorAll(this.selector);
+  }
 
   initKeyUp(ev:KeyboardEvent): void{
     console.log('ev',ev);

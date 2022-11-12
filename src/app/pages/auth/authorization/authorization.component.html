@@ -7,7 +7,7 @@
     <span class="mx-3">{{pswText}}</span>
     <input type="text" class="mt-3" pInputText [ngClass]="{'input-error': !psw}" [(ngModel)]="psw"/>
   </div>
-  <div >
+  <div *ngIf="showCardNumber">
     <span class="mx-3">&nbsp;</span>
     <p-checkbox (onChange)="vipStatusSelected()" class=" mt-3 " label="VIP-клиент" [(ngModel)]="selectedValue" [binary]="true"></p-checkbox>
     <div *ngIf="selectedValue">

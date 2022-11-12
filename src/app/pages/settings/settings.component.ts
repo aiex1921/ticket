@@ -3,7 +3,6 @@ import {Subject, Subscription, take, takeUntil} from "rxjs";
 import {ObservableExampleService} from "../../services/testing/observable-example.service";
 import {SettingsService} from "../../services/settings/settings.service";
 import {UserService} from "../../services/user/user.service";
-import {AuthService} from "../../services/auth/auth.service";
 import {IUser} from "../../models/users";
 
 

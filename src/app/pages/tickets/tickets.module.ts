@@ -14,6 +14,8 @@ import {CalendarModule} from "primeng/calendar";
 import {ToastModule} from "primeng/toast";
 import {MessageService} from "primeng/api";
 import {InputTextModule} from "primeng/inputtext";
+import {SettingsComponent} from "../settings/settings.component";
+import {SettingsModule} from "../settings/settings.module";
 
 
 
@@ -25,7 +27,8 @@ import {InputTextModule} from "primeng/inputtext";
     FooterComponent,
     TicketListComponent,
     AsideComponent,
-    BlocksStyleDirective
+    BlocksStyleDirective,
+
   ],
     imports: [
         CommonModule,
@@ -35,7 +38,8 @@ import {InputTextModule} from "primeng/inputtext";
         FormsModule,
         CalendarModule,
         ToastModule,
-        InputTextModule
+        InputTextModule,
+
 
 
     ],

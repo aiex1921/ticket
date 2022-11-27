@@ -4,6 +4,7 @@ import {ObservableExampleService} from "../../services/testing/observable-exampl
 import {SettingsService} from "../../services/settings/settings.service";
 import {UserService} from "../../services/user/user.service";
 import {IUser} from "../../models/users";
+import {MessageService} from "primeng/api";
 
 
 @Component({
@@ -12,17 +13,16 @@ import {IUser} from "../../models/users";
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit, OnDestroy {
+
+  currentPsw:string;
+  newPsw:string;
+  newPswRepeat:string;
+
   private subjectForUnsubscribe = new Subject();
-
-   currentPsw:string;
-   newPsw:string;
-   oldPsw:string;
-   user: IUser;
-
 
   constructor(private testing: ObservableExampleService,
               private settingsService: SettingsService,
-
+              private messageService: MessageService,
               private userService: UserService
               ) { }
 
@@ -47,24 +47,21 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   changePsw():void{
 
-    this.user = this.userService.getUser();
+    const user = <IUser>this.userService.getUser();
 
-
-
-    if (this.oldPsw !== this.user.psw){
-      console.log('Пароль введён неверно. Повторите попытку.')
-      console.log(this.user);
-    } else {
-      if (this.newPsw === this.currentPsw){
-        this.user.psw = this.newPsw;
-        this.userService.setUser(this.user);
-        console.log('Пароль успешно изменён.');
-        console.log(this.user);
-
+    if (user.psw === this.currentPsw){
+      if (this.newPsw === this.newPswRepeat){
+        user.psw = this.newPsw;
+        const userString = JSON.stringify(user)
+        window.localStorage.setItem('user_'+user.login, userString);
+        this.messageService.add({severity:'success', summary:'Смена пароля прошла успешно.'});
       } else {
-        console.log('Пароль не изменён.');
+        this.messageService.add({severity:'warn', summary:'Повторите операции по вводу и подтверждению нового пароля.'});
       }
-    }
+    } else {
+      this.messageService.add({severity:'error', summary:'Действующий пароль введён неверно. Повторите ввод.'});
+       }
+
   }
 
 }

@@ -13,9 +13,6 @@ const routes: Routes = [
     loadChildren:() => import('./pages/tickets/tickets.module').then(m =>m.TicketsModule)
   },
 
-  { path: 'settings',
-    loadChildren:() => import('./pages/settings/settings.module').then(m =>m.SettingsModule)
-  },
 
   {
     path: '**',

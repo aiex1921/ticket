@@ -7,8 +7,8 @@
             <span class="mx-3">Текущий пароль</span>
             <input type="password"
                    pInputText
-                   [ngClass]="{'input-error': !oldPsw}"
-                   [(ngModel)]="oldPsw"/>
+                   [ngClass]="{'input-error': !currentPsw}"
+                   [(ngModel)]="currentPsw"/>
           </div>
           <div class="mb-2">
             <span class="mx-3">Новый пароль</span>
@@ -21,8 +21,8 @@
             <span class="mx-3">Повтор нового пароля</span>
             <input type="password"
                    pInputText
-                   [ngClass]="{'input-error': !currentPsw}"
-                   [(ngModel)]="currentPsw"/>
+                   [ngClass]="{'input-error': !newPswRepeat}"
+                   [(ngModel)]="newPswRepeat"/>
           </div>
 
         </div>

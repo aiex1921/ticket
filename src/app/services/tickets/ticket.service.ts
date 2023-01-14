@@ -9,13 +9,19 @@ import {ICustomTicketData, INearestTour, ITour, ITourLocation, ITourTypeSelect} 
 export class TicketService {
 
   private ticketSubject = new Subject<ITourTypeSelect>();
-
   readonly ticketType$ = this.ticketSubject.asObservable(); // 1 вариант доступа к Observable
+
+  private ticketUpdateSubject = new Subject<ITour[]>();
+  readonly ticketUpdateSubject$ = this.ticketUpdateSubject.asObservable();
 
   constructor(private ticketServiceRest: TicketRestService) { }
 
   updateTour(type:ITourTypeSelect):void {
     this.ticketSubject.next(type)
+  }
+
+  updateTicketList(data:ITour[]) {
+    this.ticketUpdateSubject.next(data)
   }
 
   getTickets(): Observable<ITour[]>{

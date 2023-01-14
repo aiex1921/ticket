@@ -1,9 +1,11 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {IMenuType} from "../../../models/menuType";
-import {ITourTypeSelect} from "../../../models/tours";
+import {ITour, ITourTypeSelect} from "../../../models/tours";
 import {TicketService} from "../../../services/tickets/ticket.service";
 import {MessageService} from "primeng/api";
 import {SettingsService} from "../../../services/settings/settings.service";
+import {error} from "@angular/compiler-cli/src/transformers/util";
+import {HttpClient} from "@angular/common/http";
 
 
 
@@ -21,13 +23,17 @@ export class AsideComponent implements OnInit {
   ];
   obj = {type: 'custom', label: 'Обычное'};
   selectedMenuType: IMenuType;
+  tourDefaultDate = new Date();
 
 
   @Output() updateMenuType: EventEmitter<IMenuType> = new EventEmitter();
 
+
+
   constructor(private ticketService:TicketService,
-              private messageService: MessageService,
+              //private messageService: MessageService,
               private settingsService: SettingsService,
+              private http: HttpClient
               ) { }
 
   ngOnInit(): void {
@@ -35,6 +41,10 @@ export class AsideComponent implements OnInit {
       {type: 'custom', label : 'Обычное'},
       {type: 'extended', label : 'Расширенное'}
     ]
+  }
+
+  ngAfterViewInit(){
+    this.ticketService.updateTour({date: this.tourDefaultDate.toString()})
   }
 
   changeType(ev: {ev: Event, value: IMenuType}): void {
@@ -52,16 +62,32 @@ export class AsideComponent implements OnInit {
   }
 
   initRestError(): void {
-    this.ticketService.getError().subscribe((data) => {}, (err)=> {
-      console.log('err', err)
+    this.ticketService.getError().subscribe({
+      next: (data) => {},
+      error: (err) => {
+      console.log ('err', err)
+    },
+  complete: () => {}
+    //this.messageService.add({severity:'error', summary:'Проверьте введённые данные'
     });
-    this.messageService.add({severity:'error', summary:'Проверьте введённые данные'});
   }
 
   initSettingsData():void{
     this.settingsService.loadUserSettingsSubject({
       saveToken: false
     })
+  }
+
+  initTours(): void{
+    this.http.post<ITour[]>("http://localhost:3000/tours/",{}).subscribe((data) => {
+    this.ticketService.updateTicketList(data)
+    });
+  }
+
+  deleteTours(): void{
+    this.http.delete("http://localhost:3000/tours").subscribe((data) => {
+      this.ticketService.updateTicketList([]);
+    });
   }
 
 }

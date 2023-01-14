@@ -31,13 +31,17 @@ export class TicketListComponent implements OnInit {
               private ticketStorage:TicketsStorageService) { }
 
   ngOnInit(): void {
-    this.ticketService.getTickets().subscribe(
-      (data)=>{
-        this.tickets = data;
-        this.ticketsCopy = [...this.tickets];
-        this.ticketStorage.setStorage(data);
-      }
-    )
+    this.ticketService.ticketUpdateSubject$.subscribe((data) => {
+      this.tickets = data;
+    })
+
+    //this.ticketService.getTickets().subscribe(
+      //(data)=>{
+       // this.tickets = data;
+        //this.ticketsCopy = [...this.tickets];
+        //this.ticketStorage.setStorage(data);
+      //}
+    //)
     this.tourUnsubscriber = this.ticketService.ticketType$.subscribe((data: ITourTypeSelect) => {
       console.log('data', data)
 

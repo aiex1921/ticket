@@ -63,4 +63,8 @@ export class TicketService {
     return this.ticketServiceRest.sendTourData(data);
   }
 
+
+  createTour(body: any) {
+    return this.ticketServiceRest.createTour(body)
+  }
 }

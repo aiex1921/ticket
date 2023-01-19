@@ -47,4 +47,10 @@ export class TicketRestService {
   getTicketById(id: string): Observable<ITour>{
     return this.http.get<ITour>('http://localhost:3000/tours/'+id);
   }
+
+  createTour(body: any): Observable<any>{
+    return this.http.post('http://localhost:3000/tour-item/', body,{headers:{
+
+      }});
+  }
 }
